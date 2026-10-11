@@ -1,0 +1,9 @@
+include LICENSE README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md THIRD_PARTY_NOTICES.md
+include docs/bath-profiles.md docs/testing.md docs/releasing.md docs/orca-publication.md
+include docs/native-cube-evidence.json docs/native-user-report.txt
+recursive-include src *.py *.html *.js
+recursive-include tests *.py *.stl
+include tools/probe_orca.py tools/live_probe.py
+global-exclude *.pyc
+prune docs/superpowers
+exclude docs/implementation-record.md

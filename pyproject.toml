@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "electroplating_calculator"
+version = "0.2.1"
+description = "Surface area and electroplating current calculator"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{name = "Electroplating Calculator contributors"}]
+keywords = ["orcaslicer", "electroplating", "surface-area", "stl"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+]
+requires-python = ">=3.12"
+dependencies = ["numpy>=2,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "build", "playwright"]
+
+[project.urls]
+Repository = "https://github.com/kulabisbeebellkbbai-oss/orca-electroplating-calculator"
+Issues = "https://github.com/kulabisbeebellkbbai-oss/orca-electroplating-calculator/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+electroplating_calculator = ["resources/*.html", "resources/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

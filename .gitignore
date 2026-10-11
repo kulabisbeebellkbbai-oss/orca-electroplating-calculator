@@ -1,0 +1,15 @@
+.venv/
+.verify-venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.kimetsu/
+.fastembed_cache/
+.superpowers/
+artifacts/
+output/
+*.log
+.env
+.env.*

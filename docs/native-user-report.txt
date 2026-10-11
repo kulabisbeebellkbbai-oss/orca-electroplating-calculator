@@ -1,0 +1,12 @@
+Electroplating Calculator
+Bath: Acid copper
+Coating: MG Chemicals 843AR
+Measured mesh area / adjusted plated estimate:
+10mm_cube.stl · copy 1 · 10mm_cube.stl: 24 cm² / 24 cm²
+Total adjusted plated estimate: 24 cm² / 0.24 dm² / 3.7200074 in²
+Selected running density: 1.0850022 A/dm² (0.07 A/in²)
+Selected starting density: 0.5 A/dm²
+Calculated current at your selected density: running 0.26040052 A
+Calculated starting current: 0.12 A
+Measured triangle mesh area includes modeled cavities and hidden surfaces. Adjust for masking and bath exposure; print texture and conductive-coating coverage are not measured.
+Caswell reference: 0.07–0.20 A/in² for its specified bath; verify suitability for your bath. https://caswellplating.com/electroplating-anodizing/copper-plating-kits/acid-copper-electroforming-kits.html

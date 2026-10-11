@@ -1,0 +1,18 @@
+{
+  "rows": [
+    {
+      "row_id": "0:0:0",
+      "label": "10mm_cube.stl \u00b7 copy 1 \u00b7 10mm_cube.stl",
+      "area_mm2": 600.0,
+      "warnings": [],
+      "error": null
+    }
+  ],
+  "total_mm2": 600.0,
+  "running_a": 0.06510013020026041,
+  "native_render": {
+    "current": "0.06510013 A",
+    "report": "Electroplating Calculator\nBath: Acid copper with Caswell A/B additives\nCoating: MG Chemicals 843AR\nMeasured mesh area / adjusted plated estimate:\n10mm_cube.stl \u00b7 copy 1 \u00b7 10mm_cube.stl: 6 cm\u00b2 / 6 cm\u00b2\nTotal adjusted plated estimate: 6 cm\u00b2 / 0.06 dm\u00b2 / 0.93000186 in\u00b2\nSelected running density: 1.0850022 A/dm\u00b2 (0.07 A/in\u00b2)\nCalculated current at your selected density: running 0.06510013 A\nMeasured triangle mesh area includes modeled cavities and hidden surfaces. Adjust for masking and bath exposure; print texture and conductive-coating coverage are not measured.\nCaswell reference: 0.07\u20130.20 A/in\u00b2 for its specified bath; verify suitability for your bath. https://caswellplating.com/electroplating-anodizing/copper-plating-kits/acid-copper-electroforming-kits.html",
+    "total": "6 cm\u00b2 / 0.06 dm\u00b2 / 0.93000186 in\u00b2"
+  }
+}

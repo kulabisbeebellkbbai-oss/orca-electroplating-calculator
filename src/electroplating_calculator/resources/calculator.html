@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Electroplating Calculator</title>
+<style>
+:root{color-scheme:light dark;--bg:var(--orca-bg,#f4f6f7);--card:var(--orca-bg,#fff);--fg:var(--orca-fg,#182c30);--muted:var(--orca-muted,#51666b);--line:var(--orca-border,#d6e0e2);--accent:var(--orca-accent,#087e86)}
+@media(prefers-color-scheme:dark){:root{--bg:var(--orca-bg,#191e23);--card:var(--orca-bg,#252d33);--fg:var(--orca-fg,#e5edef);--muted:var(--orca-muted,#b0c0c5);--line:var(--orca-border,#445158);--accent:var(--orca-accent,#39c5c6)}}
+:root[data-orca-theme=dark]{color-scheme:dark}:root[data-orca-theme=light]{color-scheme:light}
+*{box-sizing:border-box}body{margin:0;padding:24px;font:14px/1.5 system-ui,sans-serif;background:var(--orca-bg, var(--bg));color:var(--orca-fg,var(--fg))}main{max-width:1100px;margin:auto}h1{font-size:24px;margin:0 0 4px}h2{font-size:16px;margin:0 0 12px}.intro{color:var(--muted);margin:0 0 20px}.card{padding:18px;margin:16px 0;background:var(--card);border:1px solid var(--line);border-radius:12px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}label{display:block}input,select,textarea{font:inherit;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:5px;padding:7px;max-width:100%}label>input:not([type=checkbox]),label>select{display:block;width:100%;margin-top:4px}input[type=checkbox]{accent-color:var(--accent)}input[type=number]{width:95px}button{font:inherit;border:1px solid var(--line);border-radius:6px;padding:8px 16px;cursor:pointer;background:var(--card);color:inherit}button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}button:disabled{opacity:.45;cursor:default}:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left}th{font-size:12px;color:var(--muted);white-space:nowrap}th,td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}td:first-child{min-width:220px}td small{display:block;color:var(--muted)}.results{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}.result-value{font-size:24px;font-weight:650;display:block}.result-label{font-size:12px;color:var(--muted)}#validation{color:#ba402f}#message{color:var(--accent)}#warnings{padding-left:20px;color:var(--muted)}#report{width:100%;height:230px;font:12px/1.5 ui-monospace,monospace;resize:vertical}.actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}.actions #close{margin-left:auto}.note{font-size:12px;color:var(--muted)}@media(max-width:700px){body{padding:12px}.grid{grid-template-columns:1fr 1fr}.results{grid-template-columns:1fr}.result-value{font-size:20px}}
+a{color:var(--accent)}
+</style></head><body><main>
+<h1>Electroplating Calculator</h1><p class="intro">Measure the model, adjust the plated area, then choose a current density.</p>
+<p id="message" role="status"></p>
+<section class="card"><h2>Bath and current density</h2><div class="grid">
+<label>Bath reference<select id="profile"></select></label>
+<label>Bath label<input id="bath" maxlength="300"></label><label>Conductive coating<input id="coating" maxlength="300"></label>
+<label>Density unit<select id="density-unit" aria-label="Density unit"><option value="A/in2">A/in²</option><option value="A/dm2">A/dm²</option></select></label>
+<label>Running density<input id="running" type="number" step="any" min="0" placeholder="Supplier value"></label>
+<div><label><input id="use-start" type="checkbox"> Use starting density</label><label>Starting density<input id="starting" type="number" step="any" min="0" disabled></label></div>
+</div><p><button id="use-profile">Use profile settings</button></p>
+<p class="note">Selecting a reference keeps your entered values. Use profile settings replaces the bath label and electrical values; it uses a published point or the lower end of a range. This is an editable reference, not a starting-density recommendation. Missing references stay blank.</p>
+<p class="note" id="reference"></p><p class="note" id="source"></p></section>
+<section class="card"><h2>Power supply</h2><div class="grid">
+<label>Control mode<select id="power-mode"><option value="constant_current">Constant current</option><option value="constant_voltage">Constant voltage</option></select></label>
+<label><span id="voltage-label">Voltage limit (V)</span><input id="voltage" type="number" step="any" min="0" placeholder="Optional"></label>
+</div><p class="note" id="voltage-guidance"></p><p class="note">Operating voltage references can load a voltage setpoint in constant-voltage mode. A constant-current voltage limit must be entered separately. Changing modes clears the voltage field.</p></section>
+<section class="card"><h2>Parts to plate</h2><label>Area unit<select id="area-unit"><option value="cm2">cm²</option><option value="dm2">dm²</option><option value="in2">in²</option></select></label>
+<div class="scroll"><table><thead><tr><th>Include / part</th><th>Measured mesh area</th><th>Plated %</th><th>Excluded cm²</th><th>Adjusted estimate</th></tr></thead><tbody id="parts"></tbody></table></div>
+<p class="note">Excluded area is subtracted after the plated percentage. Selection and masking apply to this calculation only.</p></section>
+<section class="card"><h2>Calculated current at your selected density</h2><div class="results">
+<div><span class="result-label">Total adjusted plated estimate</span><output class="result-value" id="total"></output></div>
+<div><span class="result-label">Running current</span><output class="result-value" id="running-result"></output></div>
+<div><span class="result-label">Starting current</span><output class="result-value" id="starting-result"></output></div></div>
+<p id="validation" role="alert"></p><ul id="warnings"></ul></section>
+<section class="card"><h2>Report</h2><label for="report" class="note">Copyable calculation and assumptions</label><textarea id="report" readonly></textarea>
+<div class="actions"><button id="copy">Copy report</button><button id="save" class="primary">Save settings</button><span id="copy-status" role="status"></span><button id="close">Close</button></div>
+<p class="note">Save settings stores the bath, coating, densities, power mode, voltage, and display units. Blank density means current is unknown. Electroless and immersion profiles calculate area only.</p></section>
+</main><script type="application/json" id="data">__DATA__</script><script>__SCRIPT__</script></body></html>
